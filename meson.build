@@ -10,7 +10,7 @@ gnome = import('gnome')
 
 
 subdir('data')
-subdir('src')
+subdir('rhinosystem')
 subdir('po')
 
 gnome.post_install(
