@@ -1,0 +1,6 @@
+data/org.rhinolinux.system.desktop.in
+data/org.rhinolinux.system.appdata.xml.in
+data/org.rhinolinux.system.gschema.xml
+src/main.py
+src/window.py
+src/window.ui

@@ -1,2 +1,3 @@
-# rhino-system
-A system information &amp; updates application
+# rhinosystem
+
+A description of this project.

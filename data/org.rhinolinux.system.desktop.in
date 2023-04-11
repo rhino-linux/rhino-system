@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=rhinosystem
+Exec=rhinosystem
+Icon=org.rhinolinux.system
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true
