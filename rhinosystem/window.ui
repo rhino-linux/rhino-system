@@ -5,6 +5,7 @@
   <template class="RhinosystemWindow" parent="AdwApplicationWindow">
     <property name="default-width">600</property>
     <property name="default-height">625</property>
+    <property name="resizable">false</property>
     <child>
       <object class="GtkBox" id="welcome">
         <property name="valign">fill</property>
@@ -37,52 +38,22 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="version">
             <property name="margin-top">5px</property>
-            <property name="label">2023.1</property>
+            <property name="label">Failed to fetch version</property>
             <style>
               <class name="dim-label"/>
             </style>
           </object>
         </child>
         <child>
-          <object class="GtkListBox">
+          <object class="GtkStack" id="stack_view">
             <property name="margin-top">20</property>
             <property name="margin-start">40</property>
             <property name="margin-end">40</property>
-            <child>
-              <object class="Inforow" id="chip"/>
-            </child>
-            <child>
-              <object class="Inforow" id="memory"/>
-            </child>
-            <child>
-              <object class="Inforow" id="gpu"/>
-            </child>
-            <child>
-              <object class="Inforow" id="kernel"/>
-            </child>
-            <child>
-              <object class="Inforow" id="desktop"/>
-            </child>
-            <child>
-              <object class="Inforow" id="os"/>
-            </child>
-            <style>
-              <class name="boxed-list"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="margin-top">15px</property>
             <property name="valign">center</property>
-            <property name="halign">center</property>
-            <property name="label">System Upgrade</property>
-            <style>
-              <class name="pill"/>
-              <class name="suggested-action"/>
-            </style>
+            <property name="halign">fill</property>
+            <property name="transition-type">crossfade</property>
           </object>
         </child>
       </object>

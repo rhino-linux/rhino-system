@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="Adw" version="1.0"/>
+  <template class="SysinfoView" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkListBox">
+        <child>
+          <object class="Inforow" id="chip"/>
+        </child>
+        <child>
+          <object class="Inforow" id="memory"/>
+        </child>
+        <child>
+          <object class="Inforow" id="gpu"/>
+        </child>
+        <child>
+          <object class="Inforow" id="kernel"/>
+        </child>
+        <child>
+          <object class="Inforow" id="desktop"/>
+        </child>
+        <child>
+          <object class="Inforow" id="os"/>
+        </child>
+        <style>
+          <class name="boxed-list"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="upgrade_button">
+        <property name="margin-top">15px</property>
+        <property name="margin-bottom">20px</property>
+        <property name="valign">center</property>
+        <property name="halign">center</property>
+        <property name="label">System Upgrade</property>
+        <style>
+          <class name="pill"/>
+          <class name="suggested-action"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>

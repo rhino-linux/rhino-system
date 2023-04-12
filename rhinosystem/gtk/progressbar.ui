@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="Adw" version="1.0"/>
+  <template class="ProgressView" parent="GtkBox">
+    <property name="orientation">vertical</property>
+
+    <child>
+      <object class="GtkProgressBar" id="progress_bar">
+        <property name="visible">true</property>
+        <property name="margin-start">40px</property>
+        <property name="margin-end">40px</property>
+        <property name="valign">center</property>
+        <property name="halign">fill</property>
+        <property name="vexpand">true</property>
+        <property name="hexpand">true</property>
+        <property name="show-text">true</property>
+        <property name="text">Downloading updates</property>
+        <style>
+          <class name="progress"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="show_log">
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="margin-top">20px</property>
+        <property name="margin-bottom">20px</property>
+        <property name="label">Show terminal output</property>
+        <style>
+          <class name="pill"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>

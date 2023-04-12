@@ -85,6 +85,14 @@ class DeviceInfo:
                     return line.split("=")[1].replace('"', "").strip()
 
     @staticmethod
+    def get_os_version():
+        with open("/etc/os-release", "r") as f:
+            for line in f:
+                if line.startswith("VERSION_ID"):
+                    return line.split("=")[1].replace('"', "").strip()
+        return "Unknown"
+
+    @staticmethod
     def get_desktop_info():
         desktop = os.environ.get("XDG_CURRENT_DESKTOP", "Unknown")
         if desktop == "Unknown":
