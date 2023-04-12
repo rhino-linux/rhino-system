@@ -18,12 +18,49 @@
 
 from gi.repository import Adw
 from gi.repository import Gtk
+from gi.repository import GLib
+from rhinosystem.widgets.inforow import Inforow
+from rhinosystem.utils.deviceinfo import DeviceInfo
+from rhinosystem.utils.threading import RunAsync
 
 @Gtk.Template(resource_path='/org/rhinolinux/system/window.ui')
 class RhinosystemWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'RhinosystemWindow'
 
-    label = Gtk.Template.Child()
+    chip: Inforow = Gtk.Template.Child()
+    memory: Inforow = Gtk.Template.Child()
+    gpu: Inforow = Gtk.Template.Child()
+    kernel: Inforow = Gtk.Template.Child()
+    desktop: Inforow = Gtk.Template.Child()
+    os: Inforow = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.chip.set_title("Chip")
+        self.memory.set_title("Memory")
+        self.gpu.set_title("GPU")
+        self.kernel.set_title("Kernel")
+        self.desktop.set_title("Desktop")
+        self.os.set_title("OS")
+
+        # Run these functions asynchronously since they can take a while to run (mainly cpu)
+        RunAsync(self.set_system_info, None, self.chip)
+        RunAsync(self.set_system_info, None, self.memory)
+        RunAsync(self.set_system_info, None, self.gpu)
+        RunAsync(self.set_system_info, None, self.kernel)
+        RunAsync(self.set_system_info, None, self.desktop)
+        RunAsync(self.set_system_info, None, self.os)
+
+    def set_system_info(self, widget):
+        if widget == self.chip:
+            GLib.idle_add(self.chip.set_label_text, DeviceInfo.get_cpu_info())
+        elif widget == self.memory:
+            GLib.idle_add(self.memory.set_label_text, DeviceInfo.get_memory_info())
+        elif widget == self.gpu:
+            GLib.idle_add(self.gpu.set_label_text, DeviceInfo.get_gpu_info())
+        elif widget == self.kernel:
+            GLib.idle_add(self.kernel.set_label_text, DeviceInfo.get_kernel_info())
+        elif widget == self.desktop:
+            GLib.idle_add(self.desktop.set_label_text, DeviceInfo.get_desktop_info())
+        elif widget == self.os:
+            GLib.idle_add(self.os.set_label_text, DeviceInfo.get_os_info())

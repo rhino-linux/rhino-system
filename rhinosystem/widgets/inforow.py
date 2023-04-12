@@ -19,6 +19,7 @@
 from gi.repository import Adw
 from gi.repository import Gtk
 
+@Gtk.Template(resource_path='/org/rhinolinux/system/widgets/inforow.ui')
 class Inforow(Adw.ActionRow):
     __gtype_name__="Inforow"
 
@@ -26,6 +27,7 @@ class Inforow(Adw.ActionRow):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
 
     def set_label_text(self, text: str):
         self.label.set_label(text)

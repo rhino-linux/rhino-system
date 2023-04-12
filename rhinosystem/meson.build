@@ -33,3 +33,7 @@ rhinosystem_sources = [
 ]
 
 install_data(rhinosystem_sources, install_dir: moduledir)
+
+subdir('widgets')
+subdir('scripts')
+subdir('utils')

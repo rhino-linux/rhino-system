@@ -3,7 +3,8 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="Adw" version="1.0"/>
   <template class="Inforow" parent="AdwActionRow">
-    <property name="title"></property>
+    <property name="activatable">False</property>
+    <property name="selectable">False</property>
     <child>
       <object class="GtkLabel" id="label">
         <property name="wrap">True</property>
