@@ -12,6 +12,9 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar" id="header_bar">
+            <property name="title-widget">
+              <object class="GtkLabel"/>
+            </property>
             <style>
               <class name="flat"/>
             </style>
