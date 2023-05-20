@@ -25,6 +25,7 @@
         <property name="margin-start">40px</property>
         <property name="margin-end">40px</property>
         <property name="margin-top">20px</property>
+        <property name="margin-bottom">50px</property>
         <property name="valign">fill</property>
         <property name="halign">fill</property>
         <property name="vexpand">true</property>
@@ -37,18 +38,6 @@
         </child>
         <style>
           <class name="card"/>
-        </style>
-      </object>
-    </child>
-    <child>
-      <object class="GtkButton" id="show_log">
-        <property name="halign">center</property>
-        <property name="valign">center</property>
-        <property name="margin-top">20px</property>
-        <property name="margin-bottom">20px</property>
-        <property name="label">Show terminal output</property>
-        <style>
-          <class name="pill"/>
         </style>
       </object>
     </child>

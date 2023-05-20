@@ -4,11 +4,16 @@ Upgrade and system info tool for Rhino Linux
 
 # Building
 Following dependencies are required
-- gtk4
-- libadwaita
+- python3-gi
+- gir1.2-adw-1
+- gir1.2-gtk-4-0
+- gir1.2-vte-3.91
+- libadwaita-1-0
+- libvte-2.91-gtk4-0
 - py-cpuinfo
+- gettext
+- desktop-file-utils
 - meson
-- ninja
 
 To build and install rhino-system simply run
 ```
