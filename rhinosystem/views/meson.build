@@ -8,4 +8,3 @@ rhinosystem_sources = [
 ]
 
 install_data(rhinosystem_sources, install_dir: viewsdir)
-subdir('upgradepages')
