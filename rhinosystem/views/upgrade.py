@@ -29,7 +29,6 @@ class UpgradeView(Gtk.Box):
     __gtype_name__ = "UpgradeView"
 
     log_box: Gtk.Box = Gtk.Template.Child()
-    progress_bar: Gtk.ProgressBar = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -43,9 +42,6 @@ class UpgradeView(Gtk.Box):
 
     def on_show(self, window):
         self.window = window
-        self.progress_bar.set_show_text(True)
-        self.progress_bar.set_text("Upgrading Rhino Linux")
-        self.progress_bar.pulse()
         self.vte_instance.spawn_async(
             Vte.PtyFlags.DEFAULT,
             ".",  # working directory
