@@ -41,7 +41,10 @@ class UpgradeView(Gtk.Box):
         self.vte_instance.set_font(Pango.FontDescription("Source Code Pro Regular 12"))
         self.log_box.append(self.vte_instance)
 
-    def on_show(self):
+    def on_show(self, window):
+        self.window = window
+        self.progress_bar.set_show_text(True)
+        self.progress_bar.set_text("Upgrading Rhino Linux")
         self.vte_instance.spawn_async(
             Vte.PtyFlags.DEFAULT,
             ".",  # working directory
@@ -54,8 +57,3 @@ class UpgradeView(Gtk.Box):
             None,
             None,
         )
-
-    def on_show(self, window):
-        self.window = window
-        self.progress_bar.set_show_text(True)
-        self.progress_bar.set_text("Upgrading Rhino Linux")
