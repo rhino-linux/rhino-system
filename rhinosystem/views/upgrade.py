@@ -45,10 +45,11 @@ class UpgradeView(Gtk.Box):
         self.window = window
         self.progress_bar.set_show_text(True)
         self.progress_bar.set_text("Upgrading Rhino Linux")
+        self.progress_bar.pulse()
         self.vte_instance.spawn_async(
             Vte.PtyFlags.DEFAULT,
             ".",  # working directory
-            ["rpk", "update", "-y"],
+            ["pkexec", "rpk", "update", "-y"],
             [],  # environment
             GLib.SpawnFlags.DO_NOT_REAP_CHILD,
             None,
