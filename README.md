@@ -6,7 +6,7 @@ Upgrade and system info tool for Rhino Linux
 Following dependencies are required
 - python3-gi
 - gir1.2-adw-1
-- gir1.2-gtk-4-0
+- gir1.2-gtk-4.0
 - gir1.2-vte-3.91
 - libadwaita-1-0
 - libvte-2.91-gtk4-0
