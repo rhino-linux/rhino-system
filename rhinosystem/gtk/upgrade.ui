@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="Adw" version="1.0"/>
+  <template class="UpgradeView" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox">
+        <property name="margin-start">40px</property>
+        <property name="margin-end">40px</property>
+        <property name="margin-top">20px</property>
+        <property name="margin-bottom">50px</property>
+        <property name="valign">fill</property>
+        <property name="halign">fill</property>
+        <property name="vexpand">true</property>
+        <property name="hexpand">true</property>
+        <child>
+          <object class="GtkBox" id="log_box">
+            <property name="halign">fill</property>
+            <property name="valign">fill</property>
+          </object>
+        </child>
+        <style>
+          <class name="card"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>

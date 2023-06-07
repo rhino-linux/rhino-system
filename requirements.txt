@@ -1,0 +1,3 @@
+py-cpuinfo
+meson
+ninja
