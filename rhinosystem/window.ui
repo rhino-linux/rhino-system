@@ -23,7 +23,7 @@
         </child>
         <child>
           <object class="GtkImage">
-            <property name="icon-name">org.rhinolinux.system</property>
+            <property name="icon-name">org.rhinolinux</property>
             <property name="pixel-size">100</property>
             <property name="valign">center</property>
             <property name="halign">center</property>
