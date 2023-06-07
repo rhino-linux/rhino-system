@@ -30,7 +30,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="title">
             <property name="label">Rhino Linux</property>
             <style>
               <class name="bold"/>
