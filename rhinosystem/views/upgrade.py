@@ -21,7 +21,7 @@ from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import Vte
 from gi.repository import Pango
-import time
+import time, sys
 from rhinosystem.utils.threading import RunAsync
 
 @Gtk.Template(resource_path='/org/rhinolinux/system/gtk/upgrade.ui')
@@ -29,6 +29,9 @@ class UpgradeView(Gtk.Box):
     __gtype_name__ = "UpgradeView"
 
     log_box: Gtk.Box = Gtk.Template.Child()
+    upgradeRunningBox: Gtk.Box = Gtk.Template.Child()
+    upgradeCompleteBox: Gtk.Box = Gtk.Template.Child()
+    quitButton: Gtk.Button = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -39,13 +42,14 @@ class UpgradeView(Gtk.Box):
         self.vte_instance.set_mouse_autohide(True)
         self.vte_instance.set_font(Pango.FontDescription("Source Code Pro Regular 12"))
         self.log_box.append(self.vte_instance)
+        self.quitButton.connect('clicked', self.quit)
 
     def on_show(self, window):
         self.window = window
         self.vte_instance.spawn_async(
             Vte.PtyFlags.DEFAULT,
             ".",  # working directory
-            ["pkexec", "rpk", "update", "-y"],
+            ["rpk", "update", "-y"],
             [],  # environment
             GLib.SpawnFlags.DO_NOT_REAP_CHILD,
             None,
@@ -54,3 +58,12 @@ class UpgradeView(Gtk.Box):
             None,
             None,
         )
+        self.vte_instance.connect('child-exited', self.on_finish)
+
+    def on_finish(self, *args):
+#        self.upgradeRunningBox.set_visible(False)
+        self.upgradeCompleteBox.set_visible(True)
+        self.window.title.set_label("Update Finished")
+    
+    def quit(self, *args):
+        sys.exit(0)

@@ -32,6 +32,7 @@ class RhinosystemWindow(Adw.ApplicationWindow):
 
     stack_view: Gtk.Stack = Gtk.Template.Child()
     version: Gtk.Label = Gtk.Template.Child()
+    title: Gtk.Label = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -46,3 +47,4 @@ class RhinosystemWindow(Adw.ApplicationWindow):
         self.os_info.set_visible(False)
         self.upgrade_progress.set_visible(True)
         self.upgrade_progress.on_show(self)
+        self.title.set_label("Updating Rhino Linux")
