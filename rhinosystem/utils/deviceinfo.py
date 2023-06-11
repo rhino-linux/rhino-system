@@ -28,10 +28,9 @@ class DeviceInfo:
     @staticmethod
     def get_cpu_info():
         info = cpuinfo.get_cpu_info()
-        first_return = info.get("brand").replace("(R)", "®").replace("(TM)", "™").replace("CPU ", "").split("@")[0]
-        second_return = str(info.get("count"))
-        third_return = info.get("brand").split("@")[1].replace("GHz", " GHz")
-        return first_return+"⨯ "+second_return+" @"+third_return
+        if info.get("vendor_id") == "AuthenticAMD":
+            return info.get("vendor_id").replace(" with Radeon Graphics", "")
+        return cpuinfo.get("vendor_id")
 
     @staticmethod
     def get_memory_info():
