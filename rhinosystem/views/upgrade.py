@@ -63,7 +63,7 @@ class UpgradeView(Gtk.Box):
     def on_finish(self, *args):
 #        self.upgradeRunningBox.set_visible(False)
         self.upgradeCompleteBox.set_visible(True)
-        self.window.title.set_label("Update Finished")
+        self.window.title.set_label("Update Complete")
     
     def quit(self, *args):
         sys.exit(0)
