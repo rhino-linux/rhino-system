@@ -29,8 +29,8 @@ class DeviceInfo:
     def get_cpu_info():
         info = cpuinfo.get_cpu_info()
         if info.get("vendor_id") == "AuthenticAMD":
-            return info.get("vendor_id").replace(" with Radeon Graphics", "")
-        return cpuinfo.get("vendor_id")
+            return info.get("brand").replace(" with Radeon Graphics", "")
+        return cpuinfo.get("brand")
 
     @staticmethod
     def get_memory_info():
