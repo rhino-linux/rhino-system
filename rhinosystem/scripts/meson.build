@@ -4,6 +4,8 @@ scriptsdir = join_paths(pkgdatadir, 'rhinosystem/scripts')
 rhinosystem_sources = [
   'get_memory.sh',
   'get_gpu.sh',
+  'get_gpu_arm.sh',
+  'get_cpu_arm.sh',
 ]
 
 install_data(rhinosystem_sources, install_dir: scriptsdir)
