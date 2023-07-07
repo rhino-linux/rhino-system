@@ -26,11 +26,44 @@ logger=setup_logging()
 class DeviceInfo:
 
     @staticmethod
+    def get_architecture():
+        out = Command.execute_command(
+            command=[
+                "uname",
+                "-m"
+            ],
+            command_description="Get system architecture",
+            crash=False,
+        )
+        if out[0] != 0:
+            logger.error("Failed to get system architecture")
+            return None
+
+        return out[1].decode("utf-8").strip()
+
+    @staticmethod
     def get_cpu_info():
-        info = cpuinfo.get_cpu_info()
-        if info.get("vendor_id") == "AuthenticAMD":
-            return info.get("brand").replace(" with Radeon Graphics", "")
-        return info.get("brand")
+        arch = DeviceInfo.get_architecture()
+
+        if arch == "aarch64":
+            out = Command.execute_command(
+                command=[
+                    sys.path[1]+"/rhinosystem/scripts/get_cpu_arm.sh"
+                ],
+                command_description="Get CPU info",
+                crash=False,
+            )
+            if out[0] != 0:
+                logger.error("Failed to get CPU info")
+                return "Failed to get CPU info"
+            return out[1].decode("utf-8").strip()
+
+        else:
+            info = cpuinfo.get_cpu_info()
+            if info.get("vendor_id") == "AuthenticAMD":
+                return info.get("brand").replace(" with Radeon Graphics", "")
+            return info.get("brand")
+
 
     @staticmethod
     def get_memory_info():
@@ -49,17 +82,33 @@ class DeviceInfo:
 
     @staticmethod
     def get_gpu_info():
-        out = Command.execute_command(
-            command=[
-                sys.path[1]+"/rhinosystem/scripts/get_gpu.sh"
-            ],
-            command_description="Get GPU info",
-            crash=False,
-        )
-        if out[0] != 0:
-            logger.error("Failed to get GPU info")
-            return "Failed to get GPU info"
-        return out[1].decode("utf-8").strip()
+        arch = DeviceInfo.get_architecture()
+
+        if arch == "aarch64":
+            out = Command.execute_command(
+                command=[
+                    sys.path[1]+"/rhinosystem/scripts/get_gpu_arm.sh"
+                ],
+                command_description="Get GPU info",
+                crash=False,
+            )
+            if out[0] != 0:
+                logger.error("Failed to get GPU info")
+                return "Failed to get GPU info"
+            return out[1].decode("utf-8").strip()
+
+        else:
+            out = Command.execute_command(
+                command=[
+                    sys.path[1]+"/rhinosystem/scripts/get_gpu.sh"
+                ],
+                command_description="Get GPU info",
+                crash=False,
+            )
+            if out[0] != 0:
+                logger.error("Failed to get GPU info")
+                return "Failed to get GPU info"
+            return out[1].decode("utf-8").strip()
 
     @staticmethod
     def get_kernel_info():
