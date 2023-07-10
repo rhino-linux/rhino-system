@@ -38,13 +38,11 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get system architecture")
             return None
-
         return out[1].decode("utf-8").strip()
 
     @staticmethod
     def get_cpu_info():
         arch = DeviceInfo.get_architecture()
-
         if arch == "aarch64":
             out = Command.execute_command(
                 command=[
@@ -57,7 +55,6 @@ class DeviceInfo:
                 logger.error("Failed to get CPU info")
                 return "Failed to get CPU info"
             return out[1].decode("utf-8").strip()
-
         else:
             info = cpuinfo.get_cpu_info()
             if info.get("vendor_id") == "AuthenticAMD":
@@ -79,7 +76,6 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get memory info")
             return "Failed to get memory info"
-
         return str(round(int(out[1].decode("utf-8").strip())*0.001))+" GiB"
 
     @staticmethod
