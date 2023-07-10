@@ -38,6 +38,7 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get system architecture")
             return None
+
         return out[1].decode("utf-8").strip()
 
     @staticmethod
@@ -76,6 +77,7 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get memory info")
             return "Failed to get memory info"
+
         return str(round(int(out[1].decode("utf-8").strip())*0.001))+" GiB"
 
     @staticmethod
