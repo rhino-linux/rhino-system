@@ -6,9 +6,9 @@ amt=$(("${#core[@]}" - 1))
 
 for ((i = 0; i <= amt; i++)); do
     if ((i != amt)); then
-        echo -n "${count[$i]}x ${core[$i]} + "
+        echo -n "${count[$i]} x ${core[$i]} + "
     else
-        echo "${count[$i]}x ${core[$i]}"
+        echo "${count[$i]} x ${core[$i]}"
         exit
     fi
 done

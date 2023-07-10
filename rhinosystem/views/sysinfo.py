@@ -27,8 +27,10 @@ from rhinosystem.utils.threading import RunAsync
 class SysinfoView(Gtk.Box):
     __gtype_name__ = "SysinfoView"
 
+    board: Inforow = Gtk.Template.Child()
     chip: Inforow = Gtk.Template.Child()
     memory: Inforow = Gtk.Template.Child()
+    disk: Inforow = Gtk.Template.Child()
     gpu: Inforow = Gtk.Template.Child()
     kernel: Inforow = Gtk.Template.Child()
     desktop: Inforow = Gtk.Template.Child()
@@ -38,26 +40,34 @@ class SysinfoView(Gtk.Box):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.board.set_title("Board")
         self.chip.set_title("Chip")
         self.memory.set_title("Memory")
+        self.disk.set_title("Disk")
         self.gpu.set_title("GPU")
         self.kernel.set_title("Kernel")
         self.desktop.set_title("Desktop")
         self.os.set_title("OS")
 
         # Run these functions asynchronously since they can take a while to run (mainly cpu)
+        RunAsync(self.set_system_info, None, self.board)
         RunAsync(self.set_system_info, None, self.chip)
         RunAsync(self.set_system_info, None, self.memory)
+        RunAsync(self.set_system_info, None, self.disk)
         RunAsync(self.set_system_info, None, self.gpu)
         RunAsync(self.set_system_info, None, self.kernel)
         RunAsync(self.set_system_info, None, self.desktop)
         RunAsync(self.set_system_info, None, self.os)
 
     def set_system_info(self, widget):
-        if widget == self.chip:
+        if widget == self.board:
+            GLib.idle_add(self.board.set_label_text, DeviceInfo.get_board_info())
+        elif widget == self.chip:
             GLib.idle_add(self.chip.set_label_text, DeviceInfo.get_cpu_info())
         elif widget == self.memory:
             GLib.idle_add(self.memory.set_label_text, DeviceInfo.get_memory_info())
+        elif widget == self.disk:
+            GLib.idle_add(self.disk.set_label_text, DeviceInfo.get_disk_info())
         elif widget == self.gpu:
             GLib.idle_add(self.gpu.set_label_text, DeviceInfo.get_gpu_info())
         elif widget == self.kernel:
