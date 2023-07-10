@@ -7,10 +7,16 @@
     <child>
       <object class="GtkListBox">
         <child>
+          <object class="Inforow" id="board"/>
+        </child>
+        <child>
           <object class="Inforow" id="chip"/>
         </child>
         <child>
           <object class="Inforow" id="memory"/>
+        </child>
+        <child>
+          <object class="Inforow" id="disk"/>
         </child>
         <child>
           <object class="Inforow" id="gpu"/>
