@@ -6,6 +6,8 @@ rhinosystem_sources = [
   'get_gpu.sh',
   'get_gpu_arm.sh',
   'get_cpu_arm.sh',
+  'get_board_model.sh',
+  'get_disk_info.sh',
 ]
 
 install_data(rhinosystem_sources, install_dir: scriptsdir)

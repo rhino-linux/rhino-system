@@ -97,7 +97,7 @@ class DeviceInfo:
     def get_board_info():
         out = Command.execute_command(
             command=[
-                sys.path[1]+"/rhinosystem/scripts/get_board_info.sh"
+                sys.path[1]+"/rhinosystem/scripts/get_board_model.sh"
             ],
             command_description="Get board info",
             crash=False,
