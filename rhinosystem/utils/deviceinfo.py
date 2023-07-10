@@ -38,13 +38,11 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get system architecture")
             return None
-
         return out[1].decode("utf-8").strip()
 
     @staticmethod
     def get_cpu_info():
         arch = DeviceInfo.get_architecture()
-
         if arch == "aarch64":
             out = Command.execute_command(
                 command=[
@@ -57,13 +55,14 @@ class DeviceInfo:
                 logger.error("Failed to get CPU info")
                 return "Failed to get CPU info"
             return out[1].decode("utf-8").strip()
-
         else:
             info = cpuinfo.get_cpu_info()
             if info.get("vendor_id") == "AuthenticAMD":
-                return info.get("brand").replace(" with Radeon Graphics", "")
-            return info.get("brand")
-
+                return f'{info.get("count")} x {info.get("brand").replace(" with Radeon Graphics", "")}'
+            elif info.get("vendor_id") == "GenuineIntel":
+                return f'{info.get("count")} x {info.get("brand").replace("(R) Core(TM)", "")}'
+            else:
+                return f'{info.get("count")} x {info.get("brand")}'
 
     @staticmethod
     def get_memory_info():
@@ -77,13 +76,39 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get memory info")
             return "Failed to get memory info"
+        return str(round(int(out[1].decode("utf-8").strip())*0.001))+".0 GiB"
 
-        return str(round(int(out[1].decode("utf-8").strip())*0.001))+" GiB"
+    @staticmethod
+    def get_disk_info():
+        out = Command.execute_command(
+            command=[
+                sys.path[1]+"/rhinosystem/scripts/get_disk_info.sh"
+            ],
+            command_description="Get disk info",
+            crash=False,
+        )
+        if out[0] != 0:
+            logger.error("Failed to get disk info")
+            return "Failed to get disk info"
+        return out[1].decode("utf-8").strip()
+
+    @staticmethod
+    def get_board_info():
+        out = Command.execute_command(
+            command=[
+                sys.path[1]+"/rhinosystem/scripts/get_board_model.sh"
+            ],
+            command_description="Get board info",
+            crash=False,
+        )
+        if out[0] != 0:
+            logger.error("Failed to get board info")
+            return "Failed to get board info"
+        return out[1].decode("utf-8").strip()
 
     @staticmethod
     def get_gpu_info():
         arch = DeviceInfo.get_architecture()
-
         if arch == "aarch64":
             out = Command.execute_command(
                 command=[
@@ -96,7 +121,6 @@ class DeviceInfo:
                 logger.error("Failed to get GPU info")
                 return "Failed to get GPU info"
             return out[1].decode("utf-8").strip()
-
         else:
             out = Command.execute_command(
                 command=[
@@ -142,8 +166,15 @@ class DeviceInfo:
 
     @staticmethod
     def get_desktop_info():
-        desktop = os.environ.get("XDG_CURRENT_DESKTOP", "Unknown")
-        if desktop == "Unknown":
-            return "Unknown"
+        environment = os.environ.get("XDG_CURRENT_DESKTOP")
+        if environment is None:
+            environment = "Unknown"
         else:
-            return desktop.replace("X-", "").replace("Budgie:GNOME", "Budgie").replace(":Unity7:ubuntu", "")
+            environment = environment.replace("X-", "").replace("Budgie:GNOME", "Budgie").replace(":Unity7:ubuntu", "")
+        winsys = os.environ.get("XDG_SESSION_TYPE")
+        if winsys is None:
+            winsys = "Unknown"
+        else:
+            winsys = winsys.capitalize()
+        desktop = f'{environment} ({winsys})'
+        return desktop
