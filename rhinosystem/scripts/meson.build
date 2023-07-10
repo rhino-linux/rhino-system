@@ -5,7 +5,7 @@ rhinosystem_sources = [
   'get_memory.sh',
   'get_gpu.sh',
   'get_gpu_arm.sh',
-  'get_cpu_arm.sh',
+  'get_cpu_info.sh',
   'get_board_model.sh',
   'get_disk_info.sh',
 ]

@@ -16,7 +16,6 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 import os
-import cpuinfo
 import sys
 import math
 from rhinosystem.utils.command import Command
@@ -42,27 +41,17 @@ class DeviceInfo:
 
     @staticmethod
     def get_cpu_info():
-        arch = DeviceInfo.get_architecture()
-        if arch == "aarch64":
-            out = Command.execute_command(
-                command=[
-                    sys.path[1]+"/rhinosystem/scripts/get_cpu_arm.sh"
-                ],
-                command_description="Get CPU info",
-                crash=False,
-            )
-            if out[0] != 0:
-                logger.error("Failed to get CPU info")
-                return "Failed to get CPU info"
-            return out[1].decode("utf-8").strip()
-        else:
-            info = cpuinfo.get_cpu_info()
-            if info.get("vendor_id") == "AuthenticAMD":
-                return f'{info.get("count")} x {info.get("brand").replace(" with Radeon Graphics", "")}'
-            elif info.get("vendor_id") == "GenuineIntel":
-                return f'{info.get("count")} x {info.get("brand").replace("(R) Core(TM)", "")}'
-            else:
-                return f'{info.get("count")} x {info.get("brand")}'
+        out = Command.execute_command(
+            command=[
+                sys.path[1]+"/rhinosystem/scripts/get_cpu_info.sh"
+            ],
+            command_description="Get CPU info",
+            crash=False,
+        )
+        if out[0] != 0:
+            logger.error("Failed to get CPU info")
+            return "Failed to get CPU info"
+        return out[1].decode("utf-8").strip()
 
     @staticmethod
     def get_memory_info():
