@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 case $(dpkg --print-architecture) in
 amd64)
-  if [[ -f "/sys/devices/virtual/dmi/id/board_name" ]]; then
+  if [ -f "/sys/devices/virtual/dmi/id/board_name" ]; then
     vendor=$(tr -d '\0' < /sys/devices/virtual/dmi/id/sys_vendor)
     case $(tr -d '\0' < /sys/devices/virtual/dmi/id/board_name) in 
       *\(*\)*) 
@@ -17,7 +17,7 @@ amd64)
   fi
   ;;
 arm64)
-  if [[ -f "/proc/device-tree/model" ]]; then
+  if [ -f "/proc/device-tree/model" ]; then
     board="$(tr -d '\0' < /proc/device-tree/model)"
   else
     board="Unknown"
