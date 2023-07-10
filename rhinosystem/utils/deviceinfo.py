@@ -76,7 +76,6 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get memory info")
             return "Failed to get memory info"
-
         return str(round(int(out[1].decode("utf-8").strip())*0.001))+" GiB"
 
     @staticmethod
@@ -110,7 +109,6 @@ class DeviceInfo:
     @staticmethod
     def get_gpu_info():
         arch = DeviceInfo.get_architecture()
-
         if arch == "aarch64":
             out = Command.execute_command(
                 command=[
@@ -123,7 +121,6 @@ class DeviceInfo:
                 logger.error("Failed to get GPU info")
                 return "Failed to get GPU info"
             return out[1].decode("utf-8").strip()
-
         else:
             out = Command.execute_command(
                 command=[
