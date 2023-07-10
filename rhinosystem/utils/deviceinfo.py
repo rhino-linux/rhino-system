@@ -76,7 +76,7 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get memory info")
             return "Failed to get memory info"
-        return str(round(int(out[1].decode("utf-8").strip())*0.001))+" GiB"
+        return str(round(int(out[1].decode("utf-8").strip())*0.001))+".0 GiB"
 
     @staticmethod
     def get_disk_info():
