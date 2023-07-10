@@ -38,7 +38,6 @@ class DeviceInfo:
         if out[0] != 0:
             logger.error("Failed to get system architecture")
             return None
-
         return out[1].decode("utf-8").strip()
 
     @staticmethod
