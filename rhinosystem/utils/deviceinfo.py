@@ -78,7 +78,7 @@ class DeviceInfo:
             logger.error("Failed to get memory info")
             return "Failed to get memory info"
 
-        return str(math.floor(int(out[1].decode("utf-8").strip())*0.001048576))+" GB"
+        return str(round(int(out[1].decode("utf-8").strip())*0.001))+" GiB"
 
     @staticmethod
     def get_gpu_info():
