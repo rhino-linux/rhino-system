@@ -40,7 +40,7 @@ class UpgradeView(Gtk.Box):
         self.vte_instance = Vte.Terminal()
         self.vte_instance.set_cursor_blink_mode(Vte.CursorBlinkMode.ON)
         self.vte_instance.set_mouse_autohide(True)
-        self.vte_instance.set_font(Pango.FontDescription("Source Code Pro Regular 12"))
+        self.vte_instance.set_font(Pango.FontDescription("Monospace 10"))
         self.log_box.append(self.vte_instance)
         self.quitButton.connect('clicked', self.quit)
 
