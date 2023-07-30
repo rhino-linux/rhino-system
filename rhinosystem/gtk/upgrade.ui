@@ -6,8 +6,8 @@
     <property name="orientation">vertical</property>
     <child>
       <object class="GtkBox" id="upgradeRunningBox">
-        <property name="margin-start">20px</property>
-        <property name="margin-end">20px</property>
+        <property name="margin-start">10px</property>
+        <property name="margin-end">10px</property>
         <property name="margin-top">20px</property>
         <property name="margin-bottom">50px</property>
         <property name="valign">fill</property>
