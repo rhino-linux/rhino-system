@@ -47,7 +47,7 @@ class SysinfoView(Gtk.Box):
         self.gpu.set_title("GPU")
         self.kernel.set_title("Kernel")
         self.desktop.set_title("Desktop")
-        self.os.set_title("OS")
+        self.os.set_title("Operating System")
 
         # Run these functions asynchronously since they can take a while to run (mainly cpu)
         RunAsync(self.set_system_info, None, self.board)
