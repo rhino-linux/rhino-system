@@ -39,6 +39,7 @@ class RhinosystemWindow(Adw.ApplicationWindow):
         self.os_info = SysinfoView()
         self.upgrade_progress = UpgradeView()
         self.os_info.upgrade_button.connect("clicked", self.upgrade_os)
+        self.os_info.exit_button.connect("clicked", quit)
         self.stack_view.add_child(self.os_info)
         self.stack_view.add_child(self.upgrade_progress)
         self.version.set_label(DeviceInfo().get_os_version())

@@ -37,6 +37,7 @@ class SysinfoView(Gtk.Box):
     os: Inforow = Gtk.Template.Child()
 
     upgrade_button: Gtk.Button = Gtk.Template.Child()
+    exit_button: Gtk.Button = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
