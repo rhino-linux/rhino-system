@@ -36,30 +36,16 @@
       </object>
     </child>
     <child>
-      <object class="GtkBox" id="buttons">
+      <object class="GtkButton" id="upgrade_button">
         <property name="margin-top">15px</property>
         <property name="margin-bottom">20px</property>
         <property name="valign">center</property>
         <property name="halign">center</property>
-        <property name="orientation">horizontal</property>
-        <child>
-          <object class="GtkButton" id="upgrade_button">
-            <property name="label">System Upgrade</property>
-            <style>
-              <class name="pill"/>
-              <class name="suggested-action"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="exit_button">
-            <property name="margin-start">15px</property>
-            <property name="label">Exit</property>
-            <style>
-              <class name="pill"/>
-            </style>
-          </object>
-        </child>
+        <property name="label">System Upgrade</property>
+        <style>
+          <class name="pill"/>
+          <class name="suggested-action"/>
+        </style>
       </object>
     </child>
   </template>
