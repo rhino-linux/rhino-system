@@ -13,7 +13,6 @@ Following dependencies are required
 - gettext
 - desktop-file-utils
 - meson
-- xclip
 
 To build and install rhino-system simply run
 ```
