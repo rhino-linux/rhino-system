@@ -16,35 +16,43 @@
 #
 # SPDX-License-Identifier: GPL-3.0-only
 
-from gi.repository import Adw
-from gi.repository import Gtk
-from gi.repository import GLib
+from gi.repository import Adw, Gtk, Gdk, GLib
 import time
 from rhinosystem.views.sysinfo import SysinfoView
 from rhinosystem.views.upgrade import UpgradeView
 from rhinosystem.widgets.inforow import Inforow
 from rhinosystem.utils.deviceinfo import DeviceInfo
 from rhinosystem.utils.threading import RunAsync
+from rhinosystem.utils.command import Command
 
 @Gtk.Template(resource_path='/org/rhinolinux/system/window.ui')
 class RhinosystemWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'RhinosystemWindow'
 
     stack_view: Gtk.Stack = Gtk.Template.Child()
-    version: Gtk.Label = Gtk.Template.Child()
+    version: Gtk.Button = Gtk.Template.Child()
+    version_invalid: Gtk.Button = Gtk.Template.Child()
     title: Gtk.Label = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.os_info = SysinfoView()
         self.upgrade_progress = UpgradeView()
+        self.version.connect("clicked", self.copy_version)
         self.os_info.upgrade_button.connect("clicked", self.upgrade_os)
         self.stack_view.add_child(self.os_info)
         self.stack_view.add_child(self.upgrade_progress)
-        self.version.set_label(DeviceInfo().get_os_version())
+        if DeviceInfo.get_os_version() != "Unknown":
+            self.version_invalid.set_visible(False)
+            self.version.set_label(DeviceInfo.get_os_version())
+        else: self.version.set_visible(False)
+        self.clipboard = Gdk.Display.get_default().get_clipboard()
 
     def upgrade_os(self, widget):
         self.os_info.set_visible(False)
         self.upgrade_progress.set_visible(True)
         self.upgrade_progress.on_show(self)
         self.title.set_label("Updating Rhino Linux")
+
+    def copy_version(self, widget):
+        self.clipboard.set("Rhino Linux " + DeviceInfo.get_os_version())

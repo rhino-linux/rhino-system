@@ -38,11 +38,26 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="version">
+          <object class="GtkButton" id="version_invalid">
             <property name="margin-top">5px</property>
+            <property name="halign">center</property>
             <property name="label">Failed to fetch version</property>
             <style>
-              <class name="dim-label"/>
+              <class name="error"/>
+              <class name="pill"/>
+              <class name="flat"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="version">
+            <property name="margin-top">5px</property>
+            <property name="halign">center</property>
+            <property name="label">no_version_set</property>
+            <style>
+              <class name="accent"/>
+              <class name="pill"/>
+              <class name="flat"/>
             </style>
           </object>
         </child>
