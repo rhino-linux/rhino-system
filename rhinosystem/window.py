@@ -45,7 +45,8 @@ class RhinosystemWindow(Adw.ApplicationWindow):
         if DeviceInfo.get_os_version() != "Unknown":
             self.version_invalid.set_visible(False)
             self.version.set_label(DeviceInfo.get_os_version())
-        else: self.version.set_visible(False)
+        else:
+            self.version.set_visible(False)
         self.clipboard = Gdk.Display.get_default().get_clipboard()
 
     def upgrade_os(self, widget):
