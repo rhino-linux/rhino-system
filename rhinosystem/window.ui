@@ -45,7 +45,6 @@
             <style>
               <class name="error"/>
               <class name="pill"/>
-              <class name="flat"/>
             </style>
           </object>
         </child>
