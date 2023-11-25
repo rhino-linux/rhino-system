@@ -56,7 +56,6 @@
             <style>
               <class name="accent"/>
               <class name="pill"/>
-              <class name="flat"/>
             </style>
           </object>
         </child>
