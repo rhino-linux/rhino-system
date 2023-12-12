@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Your System
-Exec=rhinosystem
+Exec=bash -c "ADW_DISABLE_PORTAL=1 rhinosystem"
 Icon=org.rhinolinux.system
 Terminal=false
 Type=Application
