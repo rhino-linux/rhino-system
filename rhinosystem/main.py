@@ -18,6 +18,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import sys
+from datetime import datetime
 import gi
 
 gi.require_version('Gtk', '4.0')
@@ -57,7 +58,7 @@ class RhinosystemApplication(Adw.Application):
                                 developer_name='Unknown',
                                 version='0.1.0',
                                 developers=['Unknown'],
-                                copyright='© 2023 Unknown')
+                                copyright=f"© {datetime.now().year} Unknown")
         about.present()
 
     def on_preferences_action(self, widget, _):
