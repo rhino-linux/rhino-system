@@ -1,24 +1,18 @@
 #!/bin/bash
-case "$(dpkg --print-architecture)" in
-amd64)
-  mapfile -t core < <(lscpu | grep 'Model name' | sed -e 's/Model name\:                      //g' -e 's/with Radeon Graphics//g' -e 's/(R) Core(TM)//g')
-  mapfile -t count < <(lscpu | grep 'CPU(s)' | awk '{print $2}') 
-  ;;
-arm64)
-  mapfile -t core < <(lscpu | grep 'Model name' | awk '{print $3}')
-  mapfile -t count < <(lscpu | grep 'per socket\|per cluster' | awk '{print $4}')
-  ;;
-esac
 
-amt=$(("${#core[@]}" - 1))
+unset ccount sorted joined output
+declare -A ccount
 
-for ((i = 0; i <= amt; i++)); do
-    if ((i != amt)); then
-        echo -n "${count[$i]} x ${core[$i]} + "
-    else
-        echo "${count[$i]} x ${core[$i]}"
-        exit
-    fi
+while IFS= read -r model; do
+  ((ccount["${model}"]++))
+done < <(lscpu -e=modelname | tail -n +2 | sed -e 's/with Radeon Graphics//g' -e 's/(R) Core(TM)//g')
+
+mapfile -t sorted < <(printf '%s\n' "${!ccount[@]}" | sort)
+for i in "${sorted[@]}"; do
+  joined+=("${ccount[$i]} x ${i}")
 done
 
-# will print result like `4x Cortex-A55` or `4x Cortex-A53 + 2x Cortex-A72` or `24 x 13th Gen Intel i7-13700K` - `lscpu` is built-in
+printf -v output '%s + ' "${joined[@]}"
+echo "${output% + }"
+
+# will print result like `4x Cortex-A55` or `4x Cortex-A53 + 2x Cortex-A72` or `24 x 13th Gen Intel i7-13700K`
