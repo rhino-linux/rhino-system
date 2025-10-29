@@ -21,6 +21,8 @@ from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import Vte
 from gi.repository import Pango
+from gi.repository import Gio
+from gi.repository import Gdk
 import time, sys
 from rhinosystem.utils.threading import RunAsync
 
@@ -39,8 +41,26 @@ class UpgradeView(Gtk.Box):
         self.window = None
         self.vte_instance = Vte.Terminal()
         self.vte_instance.set_cursor_blink_mode(Vte.CursorBlinkMode.ON)
-        self.vte_instance.set_mouse_autohide(True)
+        self.vte_instance.set_mouse_autohide(False)
         self.vte_instance.set_font(Pango.FontDescription("Monospace 10"))
+        self.vte_instance.set_cursor_shape(Vte.CursorShape.IBEAM)
+
+        # Enable copy/paste functionality
+        self.vte_instance.set_allow_hyperlink(True)
+        # Enable default copy/paste shortcuts (Ctrl+Shift+C/V)
+        self.vte_instance.set_input_enabled(True)
+
+        # Connect right-click context menu
+        gesture = Gtk.GestureClick.new()
+        gesture.set_button(3)  # Right mouse button
+        gesture.connect("pressed", self.on_right_click)
+        self.vte_instance.add_controller(gesture)
+
+        # Add keyboard shortcuts for copy/paste
+        key_controller = Gtk.EventControllerKey.new()
+        key_controller.connect("key-pressed", self.on_key_pressed)
+        self.vte_instance.add_controller(key_controller)
+
         self.log_box.append(self.vte_instance)
         self.quitButton.connect('clicked', self.quit)
 
@@ -59,6 +79,45 @@ class UpgradeView(Gtk.Box):
             None,
         )
         self.vte_instance.connect('child-exited', self.on_finish)
+
+    def on_right_click(self, gesture, n_press, x, y):
+        """Handle right-click to show context menu"""
+        menu = Gio.Menu.new()
+
+        # Add Copy action
+        copy_action = Gio.MenuItem.new("Copy", "terminal.copy")
+        menu.append_item(copy_action)
+
+        # Create popover menu
+        popover = Gtk.PopoverMenu.new_from_model(menu)
+        popover.set_parent(self.vte_instance)
+        popover.set_position(Gtk.PositionType.BOTTOM)
+
+        # Set pointing position (use widget coordinates)
+        rect = Gdk.Rectangle()
+        rect.x = int(x)
+        rect.y = int(y)
+        rect.width = 1
+        rect.height = 1
+        popover.set_pointing_to(rect)
+
+        # Connect actions
+        action_group = Gio.SimpleActionGroup.new()
+        copy_simple_action = Gio.SimpleAction.new("copy", None)
+        copy_simple_action.connect("activate", lambda action, param: self.vte_instance.copy_clipboard())
+        action_group.add_action(copy_simple_action)
+
+        self.vte_instance.insert_action_group("terminal", action_group)
+        popover.popup()
+
+    def on_key_pressed(self, controller, keyval, keycode, state):
+        """Handle keyboard shortcuts for copy"""
+        # Check for Ctrl+Shift+C (copy)
+        if (state & Gdk.ModifierType.CONTROL_MASK) and (state & Gdk.ModifierType.SHIFT_MASK):
+            if keyval == Gdk.KEY_C or keyval == Gdk.KEY_c:
+                self.vte_instance.copy_clipboard()
+                return True
+        return False
 
     def on_finish(self, *args):
 #        self.upgradeRunningBox.set_visible(False)
