@@ -5,34 +5,40 @@
   <template class="SysinfoView" parent="GtkBox">
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkListBox">
-        <child>
-          <object class="Inforow" id="board"/>
-        </child>
-        <child>
-          <object class="Inforow" id="chip"/>
-        </child>
-        <child>
-          <object class="Inforow" id="memory"/>
-        </child>
-        <child>
-          <object class="Inforow" id="disk"/>
-        </child>
-        <child>
-          <object class="Inforow" id="gpu"/>
-        </child>
-        <child>
-          <object class="Inforow" id="kernel"/>
-        </child>
-        <child>
-          <object class="Inforow" id="desktop"/>
-        </child>
-        <child>
-          <object class="Inforow" id="os"/>
-        </child>
-        <style>
-          <class name="boxed-list"/>
-        </style>
+      <object class="GtkScrolledWindow">
+        <property name="hscrollbar-policy">never</property>
+        <property name="vscrollbar-policy">automatic</property>
+        <property name="child">
+          <object class="GtkListBox">
+            <child>
+              <object class="Inforow" id="board"/>
+            </child>
+            <child>
+              <object class="Inforow" id="chip"/>
+            </child>
+            <child>
+              <object class="Inforow" id="memory"/>
+            </child>
+            <child>
+              <object class="Inforow" id="disk"/>
+            </child>
+            <child>
+              <object class="Inforow" id="gpu"/>
+            </child>
+            <child>
+              <object class="Inforow" id="kernel"/>
+            </child>
+            <child>
+              <object class="Inforow" id="desktop"/>
+            </child>
+            <child>
+              <object class="Inforow" id="os"/>
+            </child>
+            <style>
+              <class name="boxed-list"/>
+            </style>
+          </object>
+        </property>
       </object>
     </child>
     <child>
