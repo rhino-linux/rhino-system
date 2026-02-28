@@ -8,8 +8,6 @@
     <property name="resizable">true</property>
     <child>
       <object class="GtkBox" id="welcome">
-        <property name="valign">fill</property>
-        <property name="halign">fill</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar" id="header_bar">
@@ -22,51 +20,58 @@
           </object>
         </child>
         <child>
-          <object class="GtkImage">
-            <property name="icon-name">org.rhinolinux</property>
-            <property name="pixel-size">100</property>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="vexpand">true</property>
             <property name="valign">center</property>
-            <property name="halign">center</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="title">
-            <property name="label">Rhino Linux</property>
-            <style>
-              <class name="bold"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="version_invalid">
-            <property name="margin-top">5px</property>
-            <property name="halign">center</property>
-            <property name="label">Failed to fetch version</property>
-            <style>
-              <class name="error"/>
-              <class name="pill"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="version">
-            <property name="margin-top">5px</property>
-            <property name="halign">center</property>
-            <property name="label">no_version_set</property>
-            <style>
-              <class name="accent"/>
-              <class name="pill"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkStack" id="stack_view">
-            <property name="margin-top">20</property>
-            <property name="margin-start">40</property>
-            <property name="margin-end">40</property>
-            <property name="valign">center</property>
-            <property name="halign">fill</property>
-            <property name="transition-type">crossfade</property>
+            <child>
+              <object class="GtkImage">
+                <property name="icon-name">org.rhinolinux</property>
+                <property name="pixel-size">100</property>
+                <property name="valign">center</property>
+                <property name="halign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="label">Rhino Linux</property>
+                <style>
+                  <class name="bold"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="version_invalid">
+                <property name="margin-top">5px</property>
+                <property name="halign">center</property>
+                <property name="label">Failed to fetch version</property>
+                <style>
+                  <class name="error"/>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="version">
+                <property name="margin-top">5px</property>
+                <property name="halign">center</property>
+                <property name="label">no_version_set</property>
+                <style>
+                  <class name="accent"/>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkStack" id="stack_view">
+                <property name="margin-top">20</property>
+                <property name="margin-start">40</property>
+                <property name="margin-end">40</property>
+                <property name="valign">start</property>
+                <property name="halign">fill</property>
+                <property name="transition-type">crossfade</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>
