@@ -4,7 +4,7 @@
   <requires lib="Adw" version="1.0"/>
   <template class="RhinosystemWindow" parent="AdwApplicationWindow">
     <property name="default-width">600</property>
-    <property name="default-height">625</property>
+    <property name="default-height">800</property>
     <property name="resizable">true</property>
     <child>
       <object class="GtkBox" id="welcome">
