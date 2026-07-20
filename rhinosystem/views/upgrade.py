@@ -23,7 +23,7 @@ from gi.repository import Vte
 from gi.repository import Pango
 from gi.repository import Gio
 from gi.repository import Gdk
-import time, sys
+import time, sys, os
 from rhinosystem.utils.threading import RunAsync
 
 @Gtk.Template(resource_path='/org/rhinolinux/system/gtk/upgrade.ui')
@@ -68,9 +68,9 @@ class UpgradeView(Gtk.Box):
         self.window = window
         self.vte_instance.spawn_async(
             Vte.PtyFlags.DEFAULT,
-            ".",  # working directory
+            os.getcwd(),  # working directory
             ["rpk", "update", "-y"],
-            [],  # environment
+            [f"{k}={v}" for k, v in os.environ.items()],  # environment
             GLib.SpawnFlags.DO_NOT_REAP_CHILD,
             None,
             None,
